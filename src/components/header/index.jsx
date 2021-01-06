@@ -7,17 +7,19 @@ import { useStyles } from './styles';
 import { Box, FormControlLabel, Switch } from '@material-ui/core';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { I18N_CACHE, LANG } from '../../constants/constants';
 
 export default function ButtonAppBar() {
   const classes = useStyles();
   const { t, i18n } = useTranslation();
 
-  const [checked, setChecked] = useState(false);
+  const language = localStorage.getItem(I18N_CACHE.LOCAL_STORAGE);
+  const [checked, setChecked] = useState(language === LANG.EN ? false : true);
 
   const handleChange = event => {
     const { checked } = event.target;
     setChecked(checked);
-    i18n.changeLanguage(checked ? 'jp' : 'en');
+    i18n.changeLanguage(checked ? LANG.JP : LANG.EN);
   };
 
   return (
